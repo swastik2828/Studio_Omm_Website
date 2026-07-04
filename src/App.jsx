@@ -11,6 +11,7 @@ const Portfolio = lazy(() => import('./pages/Portfolio'));
 const About = lazy(() => import('./pages/About'));
 const Contact = lazy(() => import('./pages/Contact'));
 const NotFound = lazy(() => import('./pages/NotFound'));
+const Admin = lazy(() => import('./pages/Admin')); // Added Admin Route
 
 export default function App() {
   const [isLoading, setIsLoading] = useState(true);
@@ -37,6 +38,8 @@ export default function App() {
                 <Route path="/portfolio" element={<Portfolio />} />
                 <Route path="/about" element={<About />} />
                 <Route path="/contact" element={<Contact />} />
+                {/* Mount Admin inside MainLayout so it shares global styling */}
+                <Route path="/admin" element={<Admin />} />
                 <Route path="*" element={<NotFound />} />
               </Route>
             </Routes>
