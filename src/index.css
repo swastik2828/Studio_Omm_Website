@@ -1,0 +1,77 @@
+@import "tailwindcss";
+
+/* ----------------------------------------
+  TAILWIND V4 THEME CONFIGURATION - NEON EDITION
+  ----------------------------------------
+*/
+@theme {
+  /* Colors */
+  --color-background: #05010D; /* Deep Void Violet */
+  --color-surface: #0E0421; /* Dark Neon Purple Base */
+  --color-card: #180536; /* Elevated Deep Purple */
+  
+  /* The Neons */
+  --color-primary: #B026FF; /* Blazing Neon Purple */
+  --color-secondary: #00F0FF; /* Electric Cyan */
+  --color-accent: #FF007F; /* Hot Neon Pink */
+  --color-success: #39FF14; /* Radioactive Green */
+  
+  /* Text */
+  --color-textPrimary: #FFFFFF; /* Pure White for high contrast */
+  --color-textSecondary: #C4B5FD; /* Soft Lavender (replaces basic gray) */
+
+  /* Typography */
+  --font-sans: 'Inter', sans-serif;
+  --font-display: 'Poppins', sans-serif;
+
+  /* High-Energy Gradients */
+  --background-image-gradient-primary: linear-gradient(135deg, #B026FF, #FF007F, #00F0FF);
+  --background-image-gradient-dark: linear-gradient(to bottom, #05010D, #0E0421);
+}
+
+/* ----------------------------------------
+  GLOBAL BASE STYLES & RESETS
+  ----------------------------------------
+*/
+@layer base {
+  html {
+    scroll-behavior: smooth;
+  }
+  
+  body {
+    background-color: var(--color-background);
+    color: var(--color-textSecondary);
+    font-family: var(--font-sans);
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    overflow-x: hidden;
+  }
+  
+  h1, h2, h3, h4, h5, h6 {
+    font-family: var(--font-display);
+    color: var(--color-textPrimary);
+    letter-spacing: -0.025em;
+  }
+  
+  /* Neon Custom Scrollbar */
+  ::-webkit-scrollbar {
+    width: 6px;
+  }
+  ::-webkit-scrollbar-track {
+    background: var(--color-background);
+  }
+  ::-webkit-scrollbar-thumb {
+    background: var(--color-card);
+    border-radius: 8px;
+  }
+  ::-webkit-scrollbar-thumb:hover {
+    background: var(--color-primary);
+    box-shadow: 0 0 10px var(--color-primary);
+  }
+
+  /* Universal Selection Color */
+  ::selection {
+    background: var(--color-primary);
+    color: var(--color-textPrimary);
+  }
+}
