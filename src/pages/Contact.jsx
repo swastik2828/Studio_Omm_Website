@@ -101,11 +101,20 @@ export default function Contact() {
             </div>
           </div>
           
-          {/* Neon Glow Map Placeholder */}
-          <div className="w-full h-64 bg-card rounded-3xl border border-white/5 flex items-center justify-center overflow-hidden relative group">
-             <div className="absolute inset-0 bg-background/50 z-10 transition-opacity group-hover:opacity-0"></div>
-             <div className="absolute inset-0 bg-gradient-to-tr from-primary/20 to-secondary/20 opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
-             <p className="relative z-20 text-textSecondary font-medium group-hover:text-white transition-colors duration-500">Studio OMM Srimayee</p>
+          {/* Map */}
+          <div className="relative w-full h-64 overflow-hidden rounded-3xl border border-white/5 bg-card group">
+            <iframe
+              title="Studio OMM Srimayee location"
+              src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3758.9938505788828!2d84.75371067396563!3d19.584764135806285!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3a22b3e4880e14ad%3A0xf1afd1b3169f278d!2sSTUDIO%20OMM%20SRIMAYEE!5e0!3m2!1sen!2sin!4v1783791780326!5m2!1sen!2sin"
+              className="absolute inset-0 h-full w-full border-0"
+              loading="lazy"
+              allowFullScreen
+              referrerPolicy="strict-origin-when-cross-origin"
+            />
+            <div className="absolute inset-0 bg-gradient-to-t from-background/80 via-background/20 to-transparent" />
+            <div className="absolute bottom-4 left-4 z-10">
+              <p className="text-sm font-medium text-white">Studio OMM Srimayee</p>
+            </div>
           </div>
         </motion.div>
 
