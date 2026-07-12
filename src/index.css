@@ -1,77 +1,74 @@
 @import "tailwindcss";
 
 /* ----------------------------------------
-  TAILWIND V4 THEME CONFIGURATION - NEON EDITION
+  TAILWIND V4 THEME - OBSIDIAN & HYPER ORANGE
+  (Strict 60-30-10 Rule Implementation)
   ----------------------------------------
 */
 @theme {
-  /* Colors */
-  --color-background: #05010D; /* Deep Void Violet */
-  --color-surface: #0E0421; /* Dark Neon Purple Base */
-  --color-card: #180536; /* Elevated Deep Purple */
+  /* [60%] The Dark Backdrop */
+  --color-background: #121212; /* Matte Obsidian */
+  --color-surface: #1A1A1A;    /* Slightly lighter for distinction */
+  --color-card: #222222;       /* Elevated cards */
   
-  /* The Neons */
-  --color-primary: #B026FF; /* Blazing Neon Purple */
-  --color-secondary: #00F0FF; /* Electric Cyan */
-  --color-accent: #FF007F; /* Hot Neon Pink */
-  --color-success: #39FF14; /* Radioactive Green */
+  /* [10%] The Hyper Accents */
+  --color-primary: #FF5E00;    /* Hyper Orange */
+  --color-secondary: #FFE600;  /* Canary Gold */
+  --color-accent: #FF0055;     /* Hot Pink (Used for mesh gradient blending) */
   
-  /* Text */
-  --color-textPrimary: #FFFFFF; /* Pure White for high contrast */
-  --color-textSecondary: #C4B5FD; /* Soft Lavender (replaces basic gray) */
+  /* [30%] The Clean Typography */
+  --color-textPrimary: #FFFFFF; /* Pure White */
+  --color-textSecondary: #CCCCCC; /* Crisp Light Grey */
 
   /* Typography */
   --font-sans: 'Inter', sans-serif;
-  --font-display: 'Poppins', sans-serif;
+  --font-display: 'Space Grotesk', 'Poppins', sans-serif;
 
-  /* High-Energy Gradients */
-  --background-image-gradient-primary: linear-gradient(135deg, #B026FF, #FF007F, #00F0FF);
-  --background-image-gradient-dark: linear-gradient(to bottom, #05010D, #0E0421);
+  /* CSS Neon Glows (Box-Shadows) */
+  --shadow-neon-primary: 0 0 15px rgba(255, 94, 0, 0.4), 0 0 30px rgba(255, 94, 0, 0.2);
+  --shadow-neon-secondary: 0 0 15px rgba(255, 230, 0, 0.4), 0 0 30px rgba(255, 230, 0, 0.2);
+  --shadow-neon-hover: 0 0 20px rgba(255, 94, 0, 0.8), 0 0 40px rgba(255, 230, 0, 0.4);
+
+  /* Gradients */
+  --background-image-gradient-primary: linear-gradient(135deg, #FF5E00 0%, #FFE600 100%);
 }
 
-/* ----------------------------------------
-  GLOBAL BASE STYLES & RESETS
-  ----------------------------------------
-*/
 @layer base {
-  html {
-    scroll-behavior: smooth;
-  }
-  
+  html { scroll-behavior: smooth; }
   body {
     background-color: var(--color-background);
     color: var(--color-textSecondary);
     font-family: var(--font-sans);
     -webkit-font-smoothing: antialiased;
-    -moz-osx-font-smoothing: grayscale;
     overflow-x: hidden;
   }
-  
   h1, h2, h3, h4, h5, h6 {
     font-family: var(--font-display);
     color: var(--color-textPrimary);
-    letter-spacing: -0.025em;
+    letter-spacing: -0.01em;
   }
   
-  /* Neon Custom Scrollbar */
-  ::-webkit-scrollbar {
-    width: 6px;
+  /* Hyper Orange Scrollbar */
+  ::-webkit-scrollbar { width: 6px; }
+  ::-webkit-scrollbar-track { background: var(--color-background); }
+  ::-webkit-scrollbar-thumb { background: var(--color-card); border-radius: 8px; }
+  ::-webkit-scrollbar-thumb:hover { 
+    background: var(--color-primary); 
+    box-shadow: var(--shadow-neon-primary);
   }
-  ::-webkit-scrollbar-track {
-    background: var(--color-background);
-  }
-  ::-webkit-scrollbar-thumb {
-    background: var(--color-card);
-    border-radius: 8px;
-  }
-  ::-webkit-scrollbar-thumb:hover {
-    background: var(--color-primary);
-    box-shadow: 0 0 10px var(--color-primary);
-  }
+  ::selection { background: rgba(255, 94, 0, 0.3); color: var(--color-secondary); }
+}
 
-  /* Universal Selection Color */
-  ::selection {
-    background: var(--color-primary);
-    color: var(--color-textPrimary);
+/* MESH GRADIENT UTILITY
+  Apply this to absolute divs behind your main text for the "blurry blob" effect.
+*/
+@layer utilities {
+  .mesh-gradient-bg {
+    background-color: #121212;
+    background-image: 
+      radial-gradient(at 0% 0%, hsla(22, 100%, 50%, 0.15) 0px, transparent 50%),
+      radial-gradient(at 100% 0%, hsla(54, 100%, 50%, 0.15) 0px, transparent 50%),
+      radial-gradient(at 50% 100%, hsla(340, 100%, 50%, 0.15) 0px, transparent 50%);
+    filter: blur(80px);
   }
 }

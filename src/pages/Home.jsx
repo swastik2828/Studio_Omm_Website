@@ -2,20 +2,14 @@ import { useRef } from 'react';
 import { motion, useScroll, useTransform, useMotionValue, useSpring } from 'framer-motion';
 import { ArrowRight, Mic, Video, Radio, ShieldCheck, Zap, Trophy, MessageCircle, Star } from 'lucide-react';
 import { Link } from 'react-router-dom';
-
-// IMPORT THE 3D HERO COMPONENT HERE
 import Hero3D from '../components/Hero3D';
+import SEO from '../components/SEO';
 
-// -----------------------------
 // MICRO-COMPONENTS
-// -----------------------------
-
 const AudioEqualizer = () => (
   <div className="flex items-end gap-[3px] h-6 opacity-90">
     {[1, 2, 3, 4, 5].map((i) => (
-      <motion.div
-        key={i}
-        className="w-1.5 bg-gradient-primary rounded-t-full"
+      <motion.div key={i} className="w-1.5 bg-gradient-primary rounded-t-full"
         animate={{ height: ['20%', '100%', '30%', '90%', '20%'] }}
         transition={{ duration: 1.2, repeat: Infinity, ease: "easeInOut", delay: i * 0.1 }}
       />
@@ -42,24 +36,23 @@ const TiltCard = ({ children, className }) => {
       style={{ rotateY, rotateX, transformStyle: "preserve-3d" }}
       className={`relative perspective-1000 ${className}`}
     >
-      <div style={{ transform: "translateZ(30px)" }} className="w-full h-full">
-        {children}
-      </div>
+      <div style={{ transform: "translateZ(30px)" }} className="w-full h-full">{children}</div>
     </motion.div>
   );
 };
 
-const TrustMarquee = () => {
-  const brands = ["SONY MUSIC", "•", "NETFLIX", "•", "SPOTIFY", "•", "UNIVERSAL", "•", "HBO", "•"];
+// REPLACED TRUST MARQUEE WITH SERVICES MARQUEE
+const ServicesMarquee = () => {
+  const servicesList = ["MUSIC PRODUCTION", "•", "VIDEO EDITING", "•", "NEWS BROADCASTING", "•", "YOUTUBE MANAGEMENT", "•", "SONG CREATION", "•", "ADVERTISEMENT STUDIO", "•"];
   return (
-    <div className="w-full overflow-hidden bg-surface/50 border-y border-white/5 py-8 flex">
+    <div className="w-full overflow-hidden bg-surface/80 border-y border-white/10 py-6 flex shadow-[0_0_20px_rgba(0,240,255,0.1)]">
       <motion.div 
         className="flex gap-12 whitespace-nowrap items-center"
         animate={{ x: [0, -1000] }}
         transition={{ repeat: Infinity, duration: 25, ease: "linear" }}
       >
-        {[...brands, ...brands, ...brands].map((word, i) => (
-          <span key={i} className={`text-2xl md:text-4xl font-display font-bold tracking-widest ${word === '•' ? 'text-primary opacity-50' : 'text-white/20'}`}>
+        {[...servicesList, ...servicesList, ...servicesList].map((word, i) => (
+          <span key={i} className={`text-xl md:text-3xl font-display font-bold tracking-widest ${word === '•' ? 'text-primary opacity-50' : 'text-secondary'}`}>
             {word}
           </span>
         ))}
@@ -68,10 +61,7 @@ const TrustMarquee = () => {
   );
 };
 
-// -----------------------------
 // MAIN HOME PAGE COMPONENT
-// -----------------------------
-
 export default function Home() {
   const containerRef = useRef(null);
   const { scrollYProgress } = useScroll({ target: containerRef, offset: ["start start", "end start"] });
@@ -80,13 +70,16 @@ export default function Home() {
   return (
     <div ref={containerRef} className="w-full relative bg-background overflow-hidden">
       
+      {/* ADDED SEO */}
+      <SEO 
+        title="Top Advertisement & Music Studio" 
+        description="Studio OMM is the premier advertisement and music studio offering video editing, news broadcasting, song production, and YouTube management."
+        keywords="recording studio, advertisement creation, music production, video post-production"
+      />
+
       {/* --- SECTION 1: INTERACTIVE 3D HERO --- */}
       <section className="relative min-h-screen flex items-center justify-center pt-20 overflow-hidden">
-        
-        {/* Imported 3D Canvas Background */}
         <Hero3D />
-
-        {/* HTML UI Layered Over the 3D Canvas */}
         <motion.div style={{ opacity: opacityHero }} className="max-w-7xl mx-auto px-6 flex flex-col items-center text-center z-10 pointer-events-none mt-16">
           <motion.div
             initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.8 }}
@@ -95,7 +88,6 @@ export default function Home() {
             <AudioEqualizer />
             <span className="text-sm font-medium tracking-widest uppercase text-white">Dimension Unlocked</span>
           </motion.div>
-
           <h1 className="text-5xl md:text-7xl lg:text-8xl font-bold mb-6 max-w-5xl leading-[1.1] drop-shadow-2xl">
             <motion.span initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.1 }} className="inline-block mr-4 text-white">Sonic</motion.span>
             <motion.span initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.2 }} className="inline-block mr-4 text-white">Perfection,</motion.span>
@@ -103,14 +95,9 @@ export default function Home() {
             <motion.span initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.3 }} className="inline-block mr-4 text-white">Visual</motion.span>
             <motion.span initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.4 }} className="inline-block text-transparent bg-clip-text bg-gradient-primary drop-shadow-[0_0_30px_rgba(176,38,255,0.8)]">Dominance.</motion.span>
           </h1>
-
-          <motion.p 
-            initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 1, delay: 0.6 }}
-            className="text-lg md:text-xl text-white/80 max-w-2xl mb-12 drop-shadow-lg"
-          >
-            We engineer premium audio and cinematic visuals that cut through the noise. Scale your brand with industry-leading production.
+          <motion.p initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 1, delay: 0.6 }} className="text-lg md:text-xl text-white/80 max-w-2xl mb-12 drop-shadow-lg">
+            We engineer premium audio, cinematic video editing, and broadcast solutions that cut through the noise.
           </motion.p>
-
           <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.8, delay: 0.8 }} className="flex flex-col sm:flex-row gap-6 pointer-events-auto">
             <Link to="/portfolio" className="group relative px-10 py-5 bg-white text-background rounded-full font-bold hover:scale-105 transition-all duration-300 overflow-hidden shadow-[0_0_30px_rgba(255,255,255,0.2)]">
               <div className="absolute inset-0 w-full h-full bg-gradient-primary opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
@@ -120,15 +107,15 @@ export default function Home() {
         </motion.div>
       </section>
 
-      {/* --- SECTION 2: TRUST INDICATORS --- */}
+      {/* --- SECTION 2: NEW SERVICES MARQUEE --- */}
       <section className="relative z-20 bg-background">
-        <div className="text-center mb-6 text-sm font-bold tracking-widest text-textSecondary uppercase pt-10">Trusted by industry leaders</div>
-        <TrustMarquee />
+        <ServicesMarquee />
       </section>
 
       {/* --- SECTION 3: THE STUDIO ADVANTAGE (3D CARDS) --- */}
       <section className="py-32 relative bg-background">
-        <div className="max-w-7xl mx-auto px-6">
+        {/* ... (Keep existing 3D cards code as is: Rapid Turnaround, Commercial Fidelity, NDA Protected) ... */}
+         <div className="max-w-7xl mx-auto px-6">
           <div className="text-center mb-20">
             <h2 className="text-4xl md:text-6xl font-bold mb-4">The <span className="text-secondary">Unfair Advantage</span></h2>
             <p className="text-textSecondary text-lg max-w-2xl mx-auto">Why top agencies and independent creators choose Studio OMM for their flagship projects.</p>
@@ -175,7 +162,6 @@ export default function Home() {
             <motion.div initial={{ opacity: 0, x: -30 }} whileInView={{ opacity: 1, x: 0 }} viewport={{ once: true }}>
               <h2 className="text-4xl md:text-6xl font-bold mb-4">Core <span className="text-primary italic">Capabilities</span></h2>
             </motion.div>
-            
             <motion.div initial={{ opacity: 0, x: 30 }} whileInView={{ opacity: 1, x: 0 }} viewport={{ once: true }}>
               <Link to="/services" className="group flex items-center gap-3 text-lg font-medium text-textPrimary hover:text-primary transition-colors">
                 View All Services 
@@ -188,9 +174,9 @@ export default function Home() {
 
          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
             {[
-              { icon: Mic, title: "Audio Advertisements", color: "primary", glow: "hover:shadow-[0_0_40px_rgba(176,38,255,0.3)]" },
-              { icon: Video, title: "Video & Jingle Ads", color: "secondary", glow: "hover:shadow-[0_0_40px_rgba(0,240,255,0.3)]" },
-              { icon: Radio, title: "Podcast & Radio Ads", color: "accent", glow: "hover:shadow-[0_0_40px_rgba(255,0,127,0.3)]" }
+              { icon: Mic, title: "Music Production", color: "primary", glow: "hover:shadow-[0_0_40px_rgba(176,38,255,0.3)]" },
+              { icon: Video, title: "Video Editing", color: "secondary", glow: "hover:shadow-[0_0_40px_rgba(0,240,255,0.3)]" },
+              { icon: Radio, title: "News Broadcasting", color: "accent", glow: "hover:shadow-[0_0_40px_rgba(255,0,127,0.3)]" }
             ].map((svc, i) => (
               <motion.div key={i} initial={{ opacity: 0, y: 30 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ delay: i * 0.2 }}
                 className={`group bg-background p-10 rounded-[2rem] border border-white/10 hover:-translate-y-2 transition-all duration-500 ${svc.glow}`}
@@ -206,7 +192,43 @@ export default function Home() {
         </div>
       </section>
 
+      {/* --- NEW SECTION: STUDIO GALLERY --- */}
+      <section className="py-24 relative bg-background">
+        <div className="max-w-7xl mx-auto px-6">
+          <div className="text-center mb-16">
+            <h2 className="text-4xl md:text-6xl font-bold mb-4">Inside the <span className="text-transparent bg-clip-text bg-gradient-primary">Studio</span></h2>
+            <p className="text-textSecondary text-lg max-w-2xl mx-auto">Explore our high-end, acoustically treated production environment.</p>
+          </div>
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+            {/* Replace these place holders with your actual image paths from public/ or src/assets/ */}
+           {[
+              "https://images.unsplash.com/photo-1598488035139-bdbb2231ce04?q=80&w=800&auto=format&fit=crop", 
+              "https://images.unsplash.com/photo-1621360841013-c76831f1fb7b?q=80&w=800&auto=format&fit=crop", 
+              "https://images.unsplash.com/photo-1516280440502-86118d538e12?q=80&w=800&auto=format&fit=crop", 
+              "https://images.unsplash.com/photo-1520523839897-bd0b52f945a0?q=80&w=800&auto=format&fit=crop",
+              "https://images.unsplash.com/photo-1598653222000-6b7b7a552625?q=80&w=800&auto=format&fit=crop",
+              "https://images.unsplash.com/photo-1601058268499-e52658b8bb88?q=80&w=800&auto=format&fit=crop"
+            ].map((img, i) => (
+              <motion.div 
+                key={i} 
+                initial={{ opacity: 0, scale: 0.9 }} whileInView={{ opacity: 1, scale: 1 }} viewport={{ once: true }} transition={{ delay: i * 0.1 }}
+                className="group relative overflow-hidden rounded-2xl border border-white/10 aspect-video bg-surface/50"
+              >
+                <img 
+                  src={img} 
+                  alt={`Studio Space ${i+1}`} 
+                  className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" 
+                  onError={(e) => { e.target.src = "https://via.placeholder.com/600x400/180536/FFFFFF?text=Studio+Image"; }}
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+              </motion.div>
+            ))}
+          </div>
+        </div>
+      </section>
+
       {/* --- SECTION 5: TESTIMONIALS --- */}
+      {/* ... (Keep existing Testimonials section) ... */}
       <section className="py-32 relative overflow-hidden">
         <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[80vw] h-[400px] bg-secondary/10 rounded-[100%] blur-[100px] -z-10"></div>
         <div className="max-w-7xl mx-auto px-6">
@@ -239,6 +261,7 @@ export default function Home() {
       </section>
 
       {/* --- SECTION 6: MASSIVE CONVERSION CTA --- */}
+      {/* ... (Keep existing CTA section) ... */}
       <section className="py-32 relative border-t border-white/5 bg-gradient-to-b from-background to-surface">
         <div className="max-w-5xl mx-auto px-6 text-center">
           <motion.div initial={{ opacity: 0, y: 40 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }}>
@@ -250,7 +273,7 @@ export default function Home() {
                 href="https://wa.me/919437556043" 
                 target="_blank" 
                 rel="noopener noreferrer"
-                className="group relative px-10 py-5 bg-success text-background rounded-full font-bold text-lg hover:scale-105 transition-all duration-300 flex items-center justify-center gap-3 shadow-[0_0_40px_rgba(57,255,20,0.4)] hover:shadow-[0_0_60px_rgba(57,255,20,0.6)]"
+                className="group relative px-10 py-5 bg-success text-white rounded-full font-bold text-lg hover:scale-105 transition-all duration-300 flex items-center justify-center gap-3 shadow-[0_0_40px_rgba(57,255,20,0.4)] hover:shadow-[0_0_60px_rgba(57,255,20,0.6)]"
               >
                 <MessageCircle className="fill-current" size={24} />
                 Chat on WhatsApp

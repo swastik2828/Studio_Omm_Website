@@ -13,6 +13,7 @@ import {
   Waves, 
   Headphones 
 } from 'lucide-react';
+import SEO from '../components/SEO';
 
 // --- DATA ---
 const workflowSteps = [
@@ -52,7 +53,11 @@ export default function About() {
 
   return (
     <div className="pt-32 pb-24 overflow-hidden">
-      
+      <SEO 
+        title="About Us" 
+        description="Learn about Studio OMM's journey, our state-of-the-art equipment, and our expert production team."
+        keywords="about studio omm, recording studio history, professional production team"
+      />
       {/* 1. HERO & STUDIO STORY */}
       <section className="max-w-7xl mx-auto px-6 mb-32 text-center">
         <motion.div

@@ -1,82 +1,110 @@
-import { useRef, Suspense } from 'react';
+import { useRef, useMemo } from 'react';
 import { Canvas, useFrame } from '@react-three/fiber';
-import { Float, Sparkles } from '@react-three/drei';
+import { Float, PointMaterial, Points } from '@react-three/drei';
+import * as THREE from 'three';
 
-// Safe, math-driven pulsing orb (No external shaders required)
-function PulsingNeonOrb() {
-  const meshRef = useRef();
+// -----------------------------------------------------
+// 1. The Particle Swarm Component
+// -----------------------------------------------------
+const ParticleSwarm = () => {
+  const pointsRef = useRef();
 
-  useFrame((state, delta) => {
-    if (meshRef.current) {
-      // Rotation
-      meshRef.current.rotation.x += delta * 0.2;
-      meshRef.current.rotation.y += delta * 0.3;
+  // Generate 2000 particles spread across a wide area
+  const particleCount = 2000;
+  const positions = useMemo(() => {
+    const pos = new Float32Array(particleCount * 3);
+    for (let i = 0; i < particleCount; i++) {
+      // Create a cylindrical/spherical spread
+      const radius = Math.random() * 20;
+      const theta = Math.random() * 2 * Math.PI;
+      const y = (Math.random() - 0.5) * 20;
       
-      // Math-based heartbeat pulse (replaces the heavy Distort material)
-      const pulse = Math.sin(state.clock.elapsedTime * 2) * 0.1 + 1.2;
-      meshRef.current.scale.set(pulse, pulse, pulse);
+      pos[i * 3] = radius * Math.cos(theta);
+      pos[i * 3 + 1] = y;
+      pos[i * 3 + 2] = radius * Math.sin(theta);
+    }
+    return pos;
+  }, [particleCount]);
+
+  // Rotate the entire particle field slowly
+  useFrame((state, delta) => {
+    if (pointsRef.current) {
+      pointsRef.current.rotation.y -= delta * 0.05;
+      pointsRef.current.rotation.x -= delta * 0.02;
     }
   });
 
   return (
-    <Float speed={2} rotationIntensity={2} floatIntensity={2}>
-      <mesh ref={meshRef}>
-        {/* Icosahedron provides a beautiful geometric wireframe */}
-        <icosahedronGeometry args={[1, 12]} />
+    <Points ref={pointsRef} positions={positions} stride={3} frustumCulled={false}>
+      {/* Using the Hyper Orange (#FF5E00) for the particles. 
+        Setting size to 0.08 gives it a fine, premium dust look.
+      */}
+      <PointMaterial 
+        transparent 
+        color="#FF5E00" 
+        size={0.08} 
+        sizeAttenuation={true} 
+        depthWrite={false}
+        blending={THREE.AdditiveBlending}
+      />
+    </Points>
+  );
+};
+
+// -----------------------------------------------------
+// 2. Floating Abstract Geometry Component
+// -----------------------------------------------------
+const FloatingGeometry = () => {
+  const meshRef = useRef();
+
+  useFrame((state) => {
+    const t = state.clock.getElapsedTime();
+    meshRef.current.rotation.y = Math.sin(t / 4) / 2;
+    meshRef.current.rotation.x = Math.cos(t / 4) / 2;
+  });
+
+  return (
+    <Float speed={2} rotationIntensity={1} floatIntensity={2}>
+      <mesh ref={meshRef} position={[3, 0, -5]} scale={2.5}>
+        <icosahedronGeometry args={[1, 0]} />
+        {/* Wireframe Canary Gold (#FFE600) geometry */}
         <meshStandardMaterial 
-          color="#B026FF" 
-          emissive="#B026FF" 
-          emissiveIntensity={0.8} 
-          wireframe={true}
-          transparent={true}
-          opacity={0.9}
+          color="#FFE600" 
+          wireframe={true} 
+          emissive="#FFE600" 
+          emissiveIntensity={0.5} 
+          transparent
+          opacity={0.3}
         />
       </mesh>
     </Float>
   );
-}
+};
 
-// Lightweight floating geometric accents
-function FloatingGeometry() {
-  return (
-    <>
-      <Float speed={1.5} floatIntensity={3} position={[-3, 2, -2]}>
-        <mesh>
-          <octahedronGeometry args={[0.5, 0]} />
-          <meshStandardMaterial color="#FF007F" emissive="#FF007F" emissiveIntensity={0.8} wireframe />
-        </mesh>
-      </Float>
-      <Float speed={3} floatIntensity={2} position={[3, -2, -1]}>
-        <mesh>
-          <torusGeometry args={[0.4, 0.1, 8, 24]} />
-          <meshStandardMaterial color="#00F0FF" emissive="#00F0FF" emissiveIntensity={0.8} wireframe />
-        </mesh>
-      </Float>
-    </>
-  );
-}
-
+// -----------------------------------------------------
+// 3. The Main Canvas Export
+// -----------------------------------------------------
 export default function Hero3D() {
   return (
     <div className="absolute inset-0 w-full h-full z-0 pointer-events-none">
-      <Canvas 
-        camera={{ position: [0, 0, 6], fov: 45 }}
-        gl={{ antialias: true, powerPreference: "high-performance" }}
-      >
-        <Suspense fallback={null}>
-          {/* Optimized Lighting */}
-          <ambientLight intensity={0.5} />
-          <directionalLight position={[5, 5, 5]} intensity={2} color="#B026FF" />
-          
-          <PulsingNeonOrb />
-          <FloatingGeometry />
-          
-          {/* Optimized Particle System */}
-          <Sparkles count={200} scale={10} size={4} speed={0.5} color="#00F0FF" opacity={0.6} />
-        </Suspense>
+      {/* We use camera fov to ensure it looks cinematic */}
+      <Canvas camera={{ position: [0, 0, 10], fov: 45 }}>
+        
+        {/* Ambient light prevents complete darkness */}
+        <ambientLight intensity={0.2} color="#ffffff" />
+        
+        {/* Directional light hitting the geometry with Hyper Orange */}
+        <directionalLight position={[10, 10, 5]} intensity={2} color="#FF5E00" />
+        
+        {/* Second light hitting from the bottom with Canary Gold */}
+        <directionalLight position={[-10, -10, -5]} intensity={1.5} color="#FFE600" />
+        
+        <ParticleSwarm />
+        <FloatingGeometry />
+        
+        {/* Adds fog to the background to blend perfectly with Matte Obsidian (#121212) */}
+        <fog attach="fog" args={['#121212', 5, 25]} />
       </Canvas>
-      {/* Blend overlay so the canvas seamlessly melts into the background color */}
-      <div className="absolute inset-0 bg-gradient-to-b from-transparent via-background/50 to-background pointer-events-none"></div>
     </div>
   );
 }

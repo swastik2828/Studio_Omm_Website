@@ -3,6 +3,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { Play, X } from 'lucide-react';
 import { collection, getDocs } from 'firebase/firestore';
 import { db } from '../firebase/config';
+import SEO from '../components/SEO';
 
 // Updated Helper: Now also catches /shorts/ and ensures robust ID extraction
 const getYouTubeID = (url) => {
@@ -41,6 +42,11 @@ export default function Portfolio() {
 
   return (
     <div className="pt-32 pb-24 px-6 max-w-7xl mx-auto min-h-screen">
+      <SEO 
+        title="Our Portfolio" 
+        description="Watch and listen to our latest projects in music production, news broadcasting, and commercial video editing."
+        keywords="studio portfolio, video editing examples, music production samples"
+      />
       <div className="flex flex-col md:flex-row justify-between items-end gap-8 mb-16">
         <motion.div initial={{ opacity: 0, x: -20 }} animate={{ opacity: 1, x: 0 }}>
           <h1 className="text-5xl md:text-7xl font-bold mb-4">The <span className="text-transparent bg-clip-text bg-gradient-primary">Archive</span></h1>
