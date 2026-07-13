@@ -28,7 +28,7 @@ const equipmentList = [
   { icon: SlidersHorizontal, label: 'Analog Outboard Gear', desc: 'Warmth and punch via SSL & Neve.' },
   { icon: Waves, label: 'Dolby Atmos Setup', desc: 'Immersive 3D spatial audio mixing.' },
   { icon: MonitorPlay, label: 'Genelec Smart Monitors', desc: 'Flawless acoustic representation.' },
-  { icon: Aperture, label: 'RED Digital Cinema', desc: '8K resolution for ultimate visual fidelity.' },
+  { icon: Aperture, label: 'High Quality Digital Cinema', desc: '8K resolution for ultimate visual fidelity.' },
   { icon: Cpu, label: 'UAD Interfaces', desc: 'Zero-latency recording and DSP processing.' },
   { icon: Radio, label: 'Treated Isolation Booths', desc: 'Acoustically deadened for pure sound.' },
   { icon: Headphones, label: 'Focal Reference Audio', desc: 'Critical listening and micro-adjustments.' }
