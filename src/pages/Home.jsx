@@ -4,6 +4,16 @@ import { ArrowRight, Mic, Video, Radio, ShieldCheck, Zap, Trophy, MessageCircle,
 import { Link } from 'react-router-dom';
 import Hero3D from '../components/Hero3D';
 import SEO from '../components/SEO';
+import IMG1 from '../assets/IMG1.jpeg';
+import IMG2 from '../assets/IMG2.jpeg';
+import IMG3 from '../assets/IMG3.jpeg';
+import IMG4 from '../assets/IMG4.jpeg';
+import IMG5 from '../assets/IMG5.jpeg';
+import IMG6 from '../assets/IMG6.jpeg';
+import heroImage from '../assets/hero.png';
+import reactLogo from '../assets/react.svg';
+import viteLogo from '../assets/vite.svg';
+
 
 // MICRO-COMPONENTS
 const AudioEqualizer = () => (
@@ -200,15 +210,7 @@ export default function Home() {
             <p className="text-textSecondary text-lg max-w-2xl mx-auto">Explore our high-end, acoustically treated production environment.</p>
           </div>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-            {/* Replace these place holders with your actual image paths from public/ or src/assets/ */}
-           {[
-              "https://images.unsplash.com/photo-1598488035139-bdbb2231ce04?q=80&w=800&auto=format&fit=crop", 
-              "https://images.unsplash.com/photo-1621360841013-c76831f1fb7b?q=80&w=800&auto=format&fit=crop", 
-              "https://images.unsplash.com/photo-1516280440502-86118d538e12?q=80&w=800&auto=format&fit=crop", 
-              "https://images.unsplash.com/photo-1520523839897-bd0b52f945a0?q=80&w=800&auto=format&fit=crop",
-              "https://images.unsplash.com/photo-1598653222000-6b7b7a552625?q=80&w=800&auto=format&fit=crop",
-              "https://images.unsplash.com/photo-1601058268499-e52658b8bb88?q=80&w=800&auto=format&fit=crop"
-            ].map((img, i) => (
+            {[IMG1, IMG2, IMG3, IMG4, IMG5, IMG6].map((img, i) => (
               <motion.div 
                 key={i} 
                 initial={{ opacity: 0, scale: 0.9 }} whileInView={{ opacity: 1, scale: 1 }} viewport={{ once: true }} transition={{ delay: i * 0.1 }}
@@ -218,7 +220,6 @@ export default function Home() {
                   src={img} 
                   alt={`Studio Space ${i+1}`} 
                   className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" 
-                  onError={(e) => { e.target.src = "https://via.placeholder.com/600x400/180536/FFFFFF?text=Studio+Image"; }}
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
               </motion.div>
@@ -239,9 +240,9 @@ export default function Home() {
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
             {[
-              { quote: "Studio OMM completely elevated our brand's audio identity. The final mix for our TV spot was punchy, clear, and delivered 2 days ahead of schedule.", name: "Sarah Jenkins", role: "Creative Director" },
-              { quote: "The best vocal tracking experience I've had. The room sounds incredible, and the engineer's ear for detail saved our project.", name: "Marcus Reed", role: "Independent Artist" },
-              { quote: "Their video team understood our vision immediately. The cinematic quality and color grading exceeded anything we've done internally.", name: "David Chen", role: "Marketing VP" }
+              { quote: "Studio OMM completely elevated our brand's audio identity. The final mix for our TV spot was punchy, clear, and delivered 2 days ahead of schedule.", name: "Tapaswini Mahapatra", role: "Bargarh" },
+              { quote: "The best vocal tracking experience I've had. The room sounds incredible, and the engineer's ear for detail saved our project.", name: "Rabindranath Mishra", role: "Phulbani" },
+              { quote: "Their video team understood our vision immediately. The cinematic quality and color grading exceeded anything we've done internally.", name: "Deptimayee Mishra", role: "Baripada" }
             ].map((testimonial, i) => (
               <motion.div key={i} initial={{ opacity: 0, scale: 0.9 }} whileInView={{ opacity: 1, scale: 1 }} viewport={{ once: true }}
                 className="bg-surface/50 backdrop-blur-md p-8 rounded-3xl border border-white/10 relative hover:border-white/20 transition-colors"

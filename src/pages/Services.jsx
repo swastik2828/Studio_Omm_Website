@@ -1,6 +1,6 @@
 import { motion } from 'framer-motion';
 // FIXED: Swapped 'Youtube' for 'MonitorPlay' to prevent Vite module errors
-import { Mic, Video, Radio, Music, MonitorPlay, Edit3, Camera } from 'lucide-react';
+import { Mic, Video, Radio, Music, MonitorPlay, Edit3, Camera, Film } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import SEO from '../components/SEO';
 
@@ -12,6 +12,7 @@ const services = [
   { icon: MonitorPlay, title: 'YouTube Management', desc: 'Comprehensive channel growth, SEO optimization, and content management for creators and brands.', color: 'group-hover:border-primary/50 group-hover:shadow-[0_0_30px_-5px_rgba(212,175,55,0.15)]' },
   { icon: Edit3, title: 'Advertisement Studio', desc: 'High-impact commercial audio and video production designed to capture attention and elevate your brand.', color: 'group-hover:border-primary/50 group-hover:shadow-[0_0_30px_-5px_rgba(212,175,55,0.15)]' },
   { icon: Camera, title: 'Wedding Video & Photography', desc: 'Elegant wedding cinematography and photography — full-day coverage, cinematic edits, drone shots, and curated albums to preserve your story.', color: 'group-hover:border-primary/50 group-hover:shadow-[0_0_30px_-5px_rgba(212,175,55,0.15)]' },
+  { icon: Film, title: 'Music Video', desc: 'Concept development, cinematic shooting, editing, and post-production for music videos that feel polished and unforgettable.', color: 'group-hover:border-primary/50 group-hover:shadow-[0_0_30px_-5px_rgba(212,175,55,0.15)]' },
 ];
 
 const container = { hidden: { opacity: 0 }, show: { opacity: 1, transition: { staggerChildren: 0.1 } } };
